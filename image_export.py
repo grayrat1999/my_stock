@@ -1,9 +1,10 @@
 import pandas as pd
 import matplotlib.pyplot as plt
 from datetime import datetime, timedelta
+from stock_const import data_dir
 
-def export(source_file_name, buy_rate,sell_rate):
-    df = pd.read_csv(f"{source_file_name}", encoding="utf-8-sig")
+def export(source_file_name, buy_rate, sell_rate):
+    df = pd.read_csv(f"{data_dir}/{source_file_name}", encoding="utf-8-sig")
     df['date'] = pd.to_datetime(df['date'])
     df = df.sort_values("date").reset_index(drop=True)
 

@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 import akshare as ak
-# import pandas as pd
 from datetime import datetime, timedelta
+from stock_const import data_dir 
 
 def listStockInfoCN(symbol, days=365):
     end_dt = datetime.today()
@@ -19,6 +19,4 @@ def listStockInfoCN(symbol, days=365):
     # 改列名为英文
     df.columns = ["date", "open", "close"]
     df = df.sort_values("date")
-    df.to_csv(f"{symbol}_近年数据.csv", index=False, encoding="utf-8-sig")
-
-listStockInfoCN('H30269')
+    df.to_csv(f"{data_dir}/{symbol}_近年数据.csv", index=False, encoding="utf-8-sig")
