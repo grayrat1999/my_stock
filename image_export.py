@@ -3,16 +3,16 @@ import matplotlib.pyplot as plt
 from datetime import datetime, timedelta
 from stock_const import data_dir
 
-def export(source_file_name, buy_rate, sell_rate):
+def export(source_file_name, buy_rate, sell_rate, years=1):
     df = pd.read_csv(f"{data_dir}/{source_file_name}", encoding="utf-8-sig")
     df['date'] = pd.to_datetime(df['date'])
     df = df.sort_values("date").reset_index(drop=True)
 
     # 计算1年滚动均值（252 个交易日）
     end_date = datetime.today().strftime("%Y-%m-%d")
-    start_date = (datetime.today() - timedelta(365)).strftime("%Y-%m-%d")
+    start_date = (datetime.today() - timedelta(years * 365)).strftime("%Y-%m-%d")
     df = df[(df['date'] >= start_date) & (df['date'] <= end_date)].reset_index(drop=True)
-    df['rolling_mean'] = df['close'].rolling(window=252, min_periods=1).mean()
+    df['rolling_mean'] = df['close'].rolling(window=years * 252, min_periods=1).mean()
 
     # 计算买入卖出阈值
     df['buy_price'] = df['rolling_mean'] * (1 + buy_rate)
