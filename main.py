@@ -2,28 +2,36 @@ from stock_us import listStockInfoUS
 from stock_zh import listIndexInfoCN, listETFInfoCN
 from image_export import export
 
-years = 1
 
-# 港股低波红利ETF摩根
-listETFInfoCN(symbol='513630', days=years * 365)
-export(source_file_name='513630_近年数据.csv', buy_rate = - 0.07, sell_rate = 0.07, years=years)
+class QueryParam:
+    def __init__(self, symbol, buy_rate, sell_rate):
+        self.symbol = symbol
+        self.buy_rate = buy_rate
+        self.sell_rate = sell_rate
 
-# 红利ETF易方达
-listETFInfoCN(symbol='515180', days=years * 365)
-export(source_file_name='515180_近年数据.csv', buy_rate = - 0.07, sell_rate = 0.07, years=years)
+def queryETF(params):
+    years = 1
+    for param in params:
+        listETFInfoCN(symbol=param.symbol, days=years * 365)
+        export(source_file_name=f'{param.symbol}_近年数据.csv', buy_rate=param.buy_rate, sell_rate=param.sell_rate, years=years)
 
-# 医药ETF
-listETFInfoCN(symbol='159929', days=years * 365)
-export(source_file_name='159929_近年数据.csv', buy_rate = - 0.07, sell_rate = 0.07, years=years)
-
-# 恒生科技ETF
-listETFInfoCN(symbol='513010', days=years * 365)
-export(source_file_name='513010_近年数据.csv', buy_rate = - 0.07, sell_rate = 0.07, years=years)
+queryETF([
+        # 港股低波红利ETF摩根
+        QueryParam(symbol='513630', buy_rate=-0.07, sell_rate=0.07),
+        # 红利ETF易方达
+        QueryParam(symbol='515180', buy_rate=-0.07, sell_rate=0.07),
+        # 医药ETF
+        QueryParam(symbol='159929', buy_rate=-0.07, sell_rate=0.07),
+        # 恒生科技ETF
+        QueryParam(symbol='513010', buy_rate=-0.07, sell_rate=0.07),
+        # 消费ETF
+        QueryParam(symbol='159798', buy_rate=-0.07, sell_rate=0.07),
+])
 
 # 标普
 listStockInfoUS('.INX')
-export(source_file_name='.INX_近年数据.csv', buy_rate = - 0.1, sell_rate = 0.15, years=years)
+export(source_file_name='.INX_近年数据.csv', buy_rate = -0.1, sell_rate = 0.15, years=1)
 
 # 纳指
 listStockInfoUS('.NDX')
-export(source_file_name='.NDX_近年数据.csv', buy_rate = - 0.1, sell_rate = 0.15, years=years)
+export(source_file_name='.NDX_近年数据.csv', buy_rate = - 0.1, sell_rate = 0.15, years=1)
