@@ -15,6 +15,12 @@ def queryETF(params):
         listETFInfoCN(symbol=param.symbol, days=years * 365)
         export(source_file_name=f'{param.symbol}_近年数据.csv', buy_rate=param.buy_rate, sell_rate=param.sell_rate, years=years)
 
+def queryIndexUs(params):
+    years = 1
+    for param in params:
+        listStockInfoUS(symbol=param.symbol)
+        export(source_file_name=f'{param.symbol}_近年数据.csv', buy_rate=param.buy_rate, sell_rate=param.sell_rate, years=years)
+
 queryETF([
         # 港股低波红利ETF摩根
         QueryParam(symbol='513630', buy_rate=-0.07, sell_rate=0.07),
@@ -28,10 +34,9 @@ queryETF([
         QueryParam(symbol='159798', buy_rate=-0.07, sell_rate=0.07),
 ])
 
-# 标普
-listStockInfoUS('.INX')
-export(source_file_name='.INX_近年数据.csv', buy_rate = -0.1, sell_rate = 0.15, years=1)
-
-# 纳指
-listStockInfoUS('.NDX')
-export(source_file_name='.NDX_近年数据.csv', buy_rate = - 0.1, sell_rate = 0.15, years=1)
+queryIndexUs([
+    # 标普
+    QueryParam(symbol='.INX', buy_rate=-0.1, sell_rate=0.15),
+    # 纳指
+    QueryParam(symbol='.NDX', buy_rate=-0.1, sell_rate=0.15),
+])
