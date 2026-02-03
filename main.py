@@ -1,5 +1,5 @@
 from stock_us import listStockInfoUS
-from stock_zh import listIndexInfoCN, listETFInfoCN
+from stock_zh import listETFInfoCN
 from image_export import export
 
 
