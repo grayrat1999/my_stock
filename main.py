@@ -32,6 +32,10 @@ queryETF([
         QueryParam(symbol='513630', buy_rate=-0.07, sell_rate=0.07),
         # 红利ETF易方达
         QueryParam(symbol='515180', buy_rate=-0.07, sell_rate=0.07),
+        # 道琼斯ETF
+        QueryParam(symbol='513400', buy_rate=-0.07, sell_rate=0.07),
+        # 日经ETF
+        QueryParam(symbol='513000', buy_rate=-0.07, sell_rate=0.07),
 ])
 
 queryIndexUs([
